@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aaditi Choramle — Full-Stack Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0F16;
+    --panel:#121826;
+    --panel-2:#161E2E;
+    --line:#242E40;
+    --line-soft:#1B2433;
+    --text-hi:#EEF1F6;
+    --text-lo:#8D97A8;
+    --amber:#FFB454;
+    --teal:#5FD4C7;
+    --mono:'JetBrains Mono', ui-monospace, monospace;
+    --sans:'Inter', system-ui, sans-serif;
+    --maxw:1040px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--ink);
+    color:var(--text-hi);
+    font-family:var(--sans);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+  ::selection{background:var(--amber); color:#151515;}
+  :focus-visible{outline:2px solid var(--amber); outline-offset:3px; border-radius:3px;}
+  img{max-width:100%; display:block;}
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+  .mono{font-family:var(--mono);}
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:0.74rem;
+    letter-spacing:0.13em;
+    text-transform:uppercase;
+    color:var(--amber);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .eyebrow::before{content:''; width:16px; height:1px; background:var(--amber);}
+
+  /* ---------- Nav ---------- */
+  header{
+    position:sticky; top:0; z-index:20;
+    background:rgba(11,15,22,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 0;
+  }
+  .logo{font-family:var(--mono); font-weight:700; font-size:1rem;}
+  .logo .dot{color:var(--amber);}
+  nav.links{display:flex; gap:28px; font-family:var(--mono); font-size:0.85rem;}
+  nav.links a{text-decoration:none; color:var(--text-lo); transition:color .15s ease;}
+  nav.links a:hover, nav.links a:focus-visible{color:var(--text-hi);}
+  .nav-cta{
+    font-family:var(--mono); font-size:0.82rem;
+    color:var(--ink); background:var(--amber);
+    padding:9px 16px; border-radius:7px; text-decoration:none;
+    font-weight:600;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .nav-cta:hover{transform:translateY(-1px); box-shadow:0 8px 20px -8px rgba(255,180,84,0.5);}
+  .nav-toggle{display:none;}
+
+  @media (max-width:760px){
+    nav.links{display:none;}
+    .nav-cta{padding:8px 13px; font-size:0.76rem;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:96px 0 70px;
+    background:
+      radial-gradient(600px 300px at 85% -10%, rgba(255,180,84,0.10), transparent),
+      radial-gradient(500px 260px at 0% 0%, rgba(95,212,199,0.07), transparent);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:48px;
+    align-items:center;
+  }
+  .hero-kicker{margin-bottom:20px;}
+  .hero h1{
+    font-size:clamp(2.2rem, 4.2vw, 3.2rem);
+    line-height:1.12;
+    font-weight:800;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 .accent{color:var(--amber);}
+  .hero-role{
+    font-family:var(--mono);
+    color:var(--teal);
+    font-size:1.05rem;
+    margin-top:14px;
+  }
+  .hero-desc{
+    color:var(--text-lo);
+    max-width:56ch;
+    margin-top:18px;
+    font-size:1.02rem;
+  }
+  .hero-actions{
+    display:flex; flex-wrap:wrap; gap:12px;
+    margin-top:30px;
+  }
+  .btn{
+    font-family:var(--mono); font-size:0.86rem; font-weight:600;
+    padding:12px 20px; border-radius:8px;
+    text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .btn-primary{background:var(--amber); color:#161616;}
+  .btn-primary:hover{transform:translateY(-1px); box-shadow:0 10px 24px -10px rgba(255,180,84,0.55);}
+  .btn-ghost{border:1px solid var(--line); color:var(--text-hi);}
+  .btn-ghost:hover{border-color:var(--teal); color:var(--teal);}
+
+  .hero-badge{
+    width:190px; height:190px;
+    border-radius:20px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-weight:700; font-size:3rem;
+    color:var(--amber);
+    flex-shrink:0;
+    box-shadow:0 30px 60px -30px rgba(0,0,0,0.65);
+    position:relative;
+  }
+  .hero-badge::after{
+    content:'</>';
+    position:absolute; bottom:14px; right:16px;
+    font-size:0.9rem; color:var(--teal); opacity:0.7;
+  }
+  @media (max-width:760px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-badge{width:110px; height:110px; font-size:1.8rem; order:-1;}
+  }
+
+  .stat-row{
+    display:flex; flex-wrap:wrap; gap:34px;
+    margin-top:52px;
+    padding-top:32px;
+    border-top:1px solid var(--line-soft);
+  }
+  .stat b{
+    display:block; font-family:var(--mono); font-size:1.6rem; color:var(--text-hi);
+  }
+  .stat span{font-size:0.82rem; color:var(--text-lo);}
+
+  /* ---------- Sections ---------- */
+  section{padding:76px 0;}
+  section + section{border-top:1px solid var(--line-soft);}
+  .sec-head{margin-bottom:40px; max-width:60ch;}
+  .sec-head h2{
+    font-size:1.9rem; font-weight:800; margin-top:10px; letter-spacing:-0.01em;
+  }
+  .sec-head p{color:var(--text-lo); margin-top:12px; font-size:1rem;}
+
+  /* ---------- Projects ---------- */
+  .proj-grid{display:flex; flex-direction:column; gap:22px;}
+  .proj-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:30px 30px 26px;
+    transition:border-color .18s ease, transform .18s ease;
+  }
+  .proj-card:hover{border-color:var(--teal); transform:translateY(-2px);}
+
+  .proj-top{
+    display:flex; align-items:flex-start; justify-content:space-between; gap:20px;
+    flex-wrap:wrap;
+  }
+  .proj-title-wrap{display:flex; align-items:center; gap:10px;}
+  .proj-title{font-size:1.3rem; font-weight:700;}
+  .proj-badge{
+    font-family:var(--mono); font-size:0.68rem;
+    background:rgba(95,212,199,0.12); color:var(--teal);
+    padding:3px 9px; border-radius:20px; border:1px solid rgba(95,212,199,0.3);
+    white-space:nowrap;
+  }
+  .proj-links{display:flex; gap:10px;}
+  .proj-links a{
+    font-family:var(--mono); font-size:0.78rem;
+    border:1px solid var(--line); border-radius:7px;
+    padding:6px 12px; text-decoration:none; color:var(--text-hi);
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .proj-links a:hover, .proj-links a:focus-visible{border-color:var(--amber); color:var(--amber);}
+
+  .proj-tagline{color:var(--teal); font-family:var(--mono); font-size:0.9rem; margin-top:12px;}
+
+  .proj-bullets{margin-top:16px; display:flex; flex-direction:column; gap:9px;}
+  .proj-bullets li{
+    list-style:none; padding-left:20px; position:relative;
+    color:var(--text-hi); font-size:0.95rem;
+  }
+  .proj-bullets li::before{
+    content:'→'; position:absolute; left:0; color:var(--amber); font-family:var(--mono);
+  }
+
+  .proj-stack{display:flex; flex-wrap:wrap; gap:8px; margin-top:20px;}
+  .proj-stack span{
+    font-family:var(--mono); font-size:0.72rem; color:var(--text-lo);
+    border:1px solid var(--line); padding:4px 10px; border-radius:6px;
+  }
+
+  /* ---------- Skills ---------- */
+  .dir-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:16px;}
+  @media (max-width:760px){.dir-grid{grid-template-columns:1fr;}}
+  .dir{
+    border:1px solid var(--line); background:var(--panel);
+    border-radius:12px; padding:22px 22px 20px;
+  }
+  .dir-head{
+    font-family:var(--mono); font-size:0.86rem; color:var(--amber);
+    margin-bottom:14px; font-weight:600;
+  }
+  .dir ul{list-style:none; display:flex; flex-wrap:wrap; gap:8px;}
+  .dir li{
+    font-family:var(--mono); font-size:0.82rem; color:var(--text-hi);
+    background:var(--panel-2); border:1px solid var(--line);
+    padding:5px 10px; border-radius:6px;
+  }
+  .cert-box{
+    margin-top:18px; border:1px solid var(--line); border-radius:12px;
+    padding:18px 22px; background:var(--panel);
+    display:flex; align-items:center; gap:14px;
+  }
+  .cert-box .ico{color:var(--teal); font-size:1.1rem;}
+  .cert-box .txt{font-size:0.9rem; color:var(--text-lo);}
+  .cert-box .txt b{color:var(--text-hi);}
+
+  /* ---------- Education ---------- */
+  .edu-list{display:flex; flex-direction:column; gap:16px;}
+  .edu-card{
+    display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap;
+    border:1px solid var(--line); background:var(--panel);
+    border-radius:12px; padding:22px 24px;
+  }
+  .edu-title{font-weight:700; font-size:1.02rem;}
+  .edu-sub{color:var(--text-lo); font-size:0.88rem; margin-top:4px;}
+  .edu-score{
+    font-family:var(--mono); text-align:right;
+  }
+  .edu-score b{color:var(--teal); font-size:1.2rem; display:block;}
+  .edu-score span{color:var(--text-lo); font-size:0.72rem;}
+
+  /* ---------- Contact ---------- */
+  .contact-card{
+    border:1px solid var(--line); background:var(--panel);
+    border-radius:16px; padding:44px;
+    display:flex; justify-content:space-between; align-items:center; gap:30px; flex-wrap:wrap;
+  }
+  .contact-card h2{font-size:1.7rem; font-weight:800; max-width:20ch;}
+  .contact-card p{color:var(--text-lo); margin-top:10px; max-width:36ch;}
+  .contact-links{display:flex; flex-direction:column; gap:10px;}
+  .contact-links a{
+    font-family:var(--mono); font-size:0.9rem; text-decoration:none;
+    color:var(--text-hi); display:flex; align-items:center; gap:10px;
+  }
+  .contact-links a:hover, .contact-links a:focus-visible{color:var(--amber);}
+  .contact-links .k{color:var(--text-lo); width:70px; display:inline-block; font-size:0.76rem;}
+
+  footer{
+    padding:30px 0 50px; text-align:center;
+    color:var(--text-lo); font-family:var(--mono); font-size:0.78rem;
+  }
+
+  /* ---------- Reveal ---------- */
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease;}
+  .reveal.in{opacity:1; transform:none;}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .reveal{opacity:1; transform:none; transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav-inner">
+    <div class="logo">aaditi<span class="dot">.</span>dev</div>
+    <nav class="links">
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="nav-cta" href="mailto:aaditichoramle14@gmail.com">Get in touch</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow hero-kicker">Software Intern · Full-Stack Engineer</p>
+      <h1>Aaditi Choramle builds systems that <span class="accent">work under pressure.</span></h1>
+      <p class="hero-role">MERN Stack · Python (Flask) · REST APIs · DSA &amp; OOP</p>
+      <p class="hero-desc">
+        Full-stack developer focused on real-time, event-driven applications — from an emergency
+        dispatch platform to an AI job-search agent. Strong grounding in data structures and
+        algorithms, with three shipped, production-style projects and a hackathon win.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#projects">View Projects</a>
+        <a class="btn btn-ghost" href="mailto:aaditichoramle14@gmail.com">Contact Me</a>
+        <a class="btn btn-ghost" href="https://github.com/aacho04/" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+    <div class="hero-badge">AC</div>
+  </div>
+
+  <div class="wrap stat-row">
+    <div class="stat"><b>3</b><span>Full-stack projects shipped</span></div>
+    <div class="stat"><b>2nd</b><span>Prize — hackathon</span></div>
+    <div class="stat"><b>8.92</b><span>SGPA, MCA (in progress)</span></div>
+    <div class="stat"><b>9.24</b><span>CGPA, BCA</span></div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Projects</p>
+      <h2>Selected work</h2>
+      <p>Three end-to-end builds covering real-time systems, AI automation, and full-stack platform design.</p>
+    </div>
+
+    <div class="proj-grid">
+
+      <article class="proj-card reveal">
+        <div class="proj-top">
+          <div class="proj-title-wrap">
+            <span class="proj-title">Emergex</span>
+            <span class="proj-badge">Live</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://emergex-six.vercel.app/" target="_blank" rel="noopener">Live demo ↗</a>
+          </div>
+        </div>
+        <p class="proj-tagline">Real-time emergency response &amp; ambulance coordination platform</p>
+        <ul class="proj-bullets">
+          <li>Engineered a scalable, event-driven MERN application using Socket.io to power live SOS alerts and real-time ambulance tracking</li>
+          <li>Designed secure Role-Based Access Control (JWT) across 5+ user roles, with location-aware ambulance dispatch</li>
+          <li>Built a modular backend (Node.js, Express, MongoDB) and a responsive frontend (Next.js, TypeScript, Tailwind CSS)</li>
+          <li>Added traffic alerts and hospital pre-notifications to improve emergency response readiness</li>
+        </ul>
+        <div class="proj-stack">
+          <span>Next.js</span><span>TypeScript</span><span>Node.js</span><span>Express.js</span><span>MongoDB</span><span>Socket.io</span><span>Tailwind CSS</span><span>JWT</span>
+        </div>
+      </article>
+
+      <article class="proj-card reveal">
+        <div class="proj-top">
+          <div class="proj-title-wrap">
+            <span class="proj-title">Job-Hunting Agent</span>
+            <span class="proj-badge">2nd Prize</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/aacho04/Job_Hunter" target="_blank" rel="noopener">Source ↗</a>
+          </div>
+        </div>
+        <p class="proj-tagline">Agentic AI system for automating end-to-end job applications</p>
+        <ul class="proj-bullets">
+          <li>Built an agentic AI platform that automates job search, tracking, and outreach from a single workflow</li>
+          <li>Automated LinkedIn job search and data extraction, exporting structured results to Excel</li>
+          <li>Used the OpenAI API to optimize resumes and generate personalized cold emails automatically</li>
+          <li>Orchestrated multi-step workflows integrating Gmail (email drafting) and FPDF (resume generation)</li>
+          <li>Secured 2nd Prize in a hackathon for streamlining the recruitment process end-to-end</li>
+        </ul>
+        <div class="proj-stack">
+          <span>Python</span><span>OpenAI API</span><span>Gmail API</span><span>FPDF</span><span>Workflow Automation</span>
+        </div>
+      </article>
+
+      <article class="proj-card reveal">
+        <div class="proj-top">
+          <div class="proj-title-wrap">
+            <span class="proj-title">TripNest</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/aacho04/TripNest" target="_blank" rel="noopener">Source ↗</a>
+          </div>
+        </div>
+        <p class="proj-tagline">Full-stack real estate discovery platform</p>
+        <ul class="proj-bullets">
+          <li>Enabled geospatial property exploration through interactive Leaflet maps</li>
+          <li>Streamlined property discovery with dynamic filtering, image galleries, and seamless navigation across listing, property, and profile pages</li>
+          <li>Structured a modular MERN architecture (React, Node.js, Express, MongoDB) supporting secure authentication and property management</li>
+          <li>Added personalized profiles, saved listings, and an integrated buyer–seller messaging interface</li>
+        </ul>
+        <div class="proj-stack">
+          <span>React.js</span><span>Node.js</span><span>Express.js</span><span>MongoDB</span><span>Leaflet</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Skills</p>
+      <h2>Technical toolkit</h2>
+      <p>Grouped by what each tool is used for — the same language a recruiter or ATS would scan for.</p>
+    </div>
+
+    <div class="dir-grid reveal">
+      <div class="dir">
+        <div class="dir-head">Languages</div>
+        <ul><li>C</li><li>Java</li><li>Python</li><li>JavaScript</li><li>TypeScript</li></ul>
+      </div>
+      <div class="dir">
+        <div class="dir-head">Frontend</div>
+        <ul><li>React.js</li><li>HTML5</li><li>CSS3</li><li>SCSS</li><li>Tailwind CSS</li></ul>
+      </div>
+      <div class="dir">
+        <div class="dir-head">Backend &amp; Data</div>
+        <ul><li>Node.js</li><li>Express.js</li><li>Flask</li><li>FastMCP</li><li>RESTful APIs</li><li>OpenAI API</li><li>Socket.io</li><li>MongoDB</li><li>MySQL</li><li>Oracle Database</li></ul>
+      </div>
+      <div class="dir">
+        <div class="dir-head">Tools &amp; Foundations</div>
+        <ul><li>Git</li><li>GitHub</li><li>Postman</li><li>Data Structures &amp; Algorithms</li><li>OOP</li><li>ML Fundamentals</li></ul>
+      </div>
+    </div>
+
+    <div class="cert-box reveal">
+      <span class="ico">&#9733;</span>
+      <span class="txt"><b>Machine Learning Certification</b> — Udemy (Supervised &amp; Unsupervised Learning, Model Evaluation)</span>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Education</p>
+      <h2>Academic background</h2>
+    </div>
+    <div class="edu-list reveal">
+      <div class="edu-card">
+        <div>
+          <div class="edu-title">Master of Computer Applications</div>
+          <div class="edu-sub">Savitribai Phule Pune University · 2025 – 2027</div>
+        </div>
+        <div class="edu-score"><b>8.92</b><span>SGPA</span></div>
+      </div>
+      <div class="edu-card">
+        <div>
+          <div class="edu-title">Bachelor of Computer Applications</div>
+          <div class="edu-sub">Savitribai Phule Pune University · 2022 – 2025</div>
+        </div>
+        <div class="edu-score"><b>9.24</b><span>CGPA</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-card reveal">
+      <div>
+        <h2>Let's build something together.</h2>
+        <p>Open to software internships and entry-level SDE roles. Based in Pune, working remote-friendly.</p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:aaditichoramle14@gmail.com"><span class="k">Email</span> aaditichoramle14@gmail.com</a>
+        <a href="https://www.linkedin.com/in/aaditi-choramle-6a5aa5282/" target="_blank" rel="noopener"><span class="k">LinkedIn</span> /in/aaditi-choramle</a>
+        <a href="https://github.com/aacho04/" target="_blank" rel="noopener"><span class="k">GitHub</span> /aacho04</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Aaditi Choramle · Built with intent, not a template.
+</footer>
+
+<script>
+  (function(){
+    var els = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){
+      els.forEach(function(e){ e.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.1});
+    els.forEach(function(e){ io.observe(e); });
+  })();
+</script>
+
+</body>
+</html>
